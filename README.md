@@ -3,45 +3,27 @@ Unity project version 2019.3.15
 
 ![image](GHAssets/HouseDescriptor.png)
 
-- Player Model Name : Name your model
+- House Name : Name your house
 - Author : Put your name here
-- Lefhand : left hand bone
-- Righthand : right hand bone
-- Torso : the toro/hips of the rig
-- Body : The mesh of the model
-- Custom Color : Enables custom colors on your playermodel
-- Game Mode Textures : Enables Game Mode Textures on your playermodel
 
-Create an Empty GameObject and reset the transforms, attach the PlayermodelDescriptor to it.
-Import your model with the rig from the .blend file, and attach it to the GameObject.
-Apply your materials to the model
-Assign the specified bones to the PlayermodelDescriptor
+To make a home simply put all of your models inside the House Gameobject 
+![image_2022-06-28_161739308](https://user-images.githubusercontent.com/104174626/176106875-0701eaeb-bb8b-4e89-8856-db1704a0ba8e.png)
 
-Specific bones highlighted in red (naming of the bones don't matter)
+and then go to window click exporter
+![image](https://user-images.githubusercontent.com/104174626/176106964-fe389c56-6eb3-469a-878a-0fe9b2ba55a0.png)
 
-I'm using the PlayerModelMod_FBX_Example.fbx as an example (In the Assets folder)
+Then name and export your house
+![image](https://user-images.githubusercontent.com/104174626/176107060-079146d4-5fde-4ba6-b788-c31504663fc7.png)
 
-![image](https://user-images.githubusercontent.com/65086429/172035609-9c94028e-437c-41ed-ac81-cb9d654a99d3.png)
-![image](https://user-images.githubusercontent.com/65086429/172035618-70e3a86e-f8ec-4e92-a4c6-36894f6a1c13.png)
+You should then see this just click YIPEE (Thanks mono lol)
+![image](https://user-images.githubusercontent.com/104174626/176107601-8f432c10-3eda-4519-acb6-f83e2877aea0.png)
 
+Now in the project window navigate to HomeOutput
+![image](https://user-images.githubusercontent.com/104174626/176107779-c38a2242-8d2d-4d9d-8f59-b3696a41117c.png)
 
-To test the playermodel in the editor,
-Enable the OfflineRig_GorillaPlayer
-Press play in the editor.
-If the Playermodel was setup correctly, the playermodel should be aligned to the OfflineRig_GorillaPlayer with green shaped on the arms
+in there you should see a file called whatever you named your home
+drag this file into your home folder in the Gorilla Tag Folder
+![image](https://user-images.githubusercontent.com/104174626/176107979-b0ab1e33-0a21-4bfb-8139-12e0199c707c.png)
 
-![image](https://user-images.githubusercontent.com/65086429/172035710-3565cc07-5845-4917-bed4-df27cb0dccfa.png)
-
-Press play again to exit.
-
-Next step is to export the .gtmodel file
-
-Go the Menu item "Assets"
-Then "Create Player Model"
-
-The Console will print the name of your player model.
-The playermodel is exported to the PlayerModelOutput Folder
-
-Drap the .gtmodel file into the PlayerAssets folder in the PlayerModels Mod folder
-
-D O N E
+Then you are finished load up gorilla tag and your house should be on the house switcher
+![image](https://user-images.githubusercontent.com/104174626/176107157-1afd99c7-4b31-4f23-aa9f-245d61e41b60.png)
