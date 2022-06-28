@@ -67,7 +67,7 @@ public class CreateObject : EditorWindow
                         }
                         noteObject.GetComponent<HouseDescriptor>().enabled = false;
                         BuildAssetBundle(note.gameObject);
-                        EditorUtility.DisplayDialog("Sandbox Object Exported", "Exportation Successful!", "YIPPEE");
+                        EditorUtility.DisplayDialog("Home Exported", "Exportation Successful!", "YIPPEE");
                     }
                     else
                     {
