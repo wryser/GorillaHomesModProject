@@ -1,6 +1,8 @@
 # Gorilla Homes Mod Project
 Unity project version 2019.3.15
 
+OPEN SCENE BASESCENE TO SEE TREE
+
 ![image](GHAssets/HouseDescriptor.png)
 
 - House Name : Name your house
