@@ -1,7 +1,7 @@
 # Gorilla Homes Mod Project
 Unity project version 2019.3.15
 
-![image](GorillaHomesModProject/GHAssets/HouseDescriptor.png)
+![image](GHAssets/HouseDescriptor.png)
 
 - Player Model Name : Name your model
 - Author : Put your name here
