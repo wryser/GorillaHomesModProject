@@ -1,6 +1,6 @@
 # Gorilla Homes Mod Project
-Join the discord to learn how to make homes: https://discord.gg/FdqFUvJZ5m
 Unity project version 2019.3.15
+Join the discord to learn how to make homes: https://discord.gg/FdqFUvJZ5m
 
 OPEN SCENE BASESCENE TO SEE TREE
 
