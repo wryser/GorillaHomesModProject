@@ -18,7 +18,7 @@ To make a home simply put all of your models inside the House Gameobject
 
 then on the house gameobject put your gorilla home info in
 
-![image](GHAssets/HouseDescriptor.png)
+![HouseDescriptor](https://github.com/user-attachments/assets/56e88965-4744-4ddf-a682-c43ddc0c0bc3)
 
 - House Name : Name your house
 - Author : Put your name here
