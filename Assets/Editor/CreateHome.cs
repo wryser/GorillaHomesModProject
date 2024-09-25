@@ -2,76 +2,81 @@
 using UnityEngine;
 using System.IO;
 using UnityEngine.UI;
+
 public class CreateObject : EditorWindow
 {
+    private HouseDescriptor[] descriptorNotes;
+    [MenuItem("Gorilla Homes/Home Exporter")]
 
-    static private string prefabPath;
-
-    static public string filePath;
-
-    private HouseDescriptor[] notes;
-    [MenuItem("Window/Exporter")]
     public static void ShowWindow()
     {
-        GetWindow(typeof(CreateObject), false, "Exporter", false);
+        GetWindow(typeof(CreateObject), false, "Home Exporter", false);
     }
-    public Vector2 scrollPosition = Vector2.zero;
 
-    private void OnFocus()
+    public void OnFocus()
     {
-        notes = FindObjectsOfType<HouseDescriptor>();
+        descriptorNotes = FindObjectsOfType<HouseDescriptor>();
     }
-    void OnGUI()
+
+    public Vector2 scrollPosition = Vector2.zero;
+    public void OnGUI()
     {
-        var window = GetWindow(typeof(CreateObject), false, "Exporter", false);
+        var window = GetWindow(typeof(CreateObject), false, "Home Exporter", false);
 
         int ScrollSpace = (16 + 20) + (16 + 17 + 17 + 20 + 20);
-        foreach (HouseDescriptor note in notes)
+        foreach (var note in descriptorNotes)
         {
             if (note != null)
             {
-
                 ScrollSpace += (16 + 17 + 17 + 20 + 20);
-
             }
         }
+
         float currentWindowWidth = EditorGUIUtility.currentViewWidth;
         float windowWidthIncludingScrollbar = currentWindowWidth;
         if (window.position.size.y >= ScrollSpace)
         {
             windowWidthIncludingScrollbar += 30;
         }
+
         scrollPosition = GUI.BeginScrollView(new Rect(0, 0, EditorGUIUtility.currentViewWidth, window.position.size.y), scrollPosition, new Rect(0, 0, EditorGUIUtility.currentViewWidth - 20, ScrollSpace), false, false);
 
-        GUILayout.Label("Notes", EditorStyles.boldLabel, GUILayout.Height(16));
-        GUILayout.Space(20);
-
-        foreach (HouseDescriptor note in notes)
+        foreach (HouseDescriptor descriptorNote in descriptorNotes)
         {
-            if (note != null)
+            if (descriptorNote != null)
             {
-                GUILayout.Label("GameObject : " + note.gameObject.name, EditorStyles.boldLabel, GUILayout.Height(16));
-                note.Author = EditorGUILayout.TextField("Object author", note.Author, GUILayout.Width(windowWidthIncludingScrollbar - 40), GUILayout.Height(17));
-                note.HouseName = EditorGUILayout.TextField("Object name", note.HouseName, GUILayout.Width(windowWidthIncludingScrollbar - 40), GUILayout.Height(17));
+                GUILayout.Label(descriptorNote.gameObject.name, EditorStyles.boldLabel, GUILayout.Height(16));
+                descriptorNote.HouseName = EditorGUILayout.TextField("Home Name:", descriptorNote.HouseName, GUILayout.Width(windowWidthIncludingScrollbar - 40), GUILayout.Height(17));
+                descriptorNote.Author = EditorGUILayout.TextField("Author:", descriptorNote.Author, GUILayout.Width(windowWidthIncludingScrollbar - 40), GUILayout.Height(17));
 
-                if (GUILayout.Button("Export " + note.HouseName, GUILayout.Width(windowWidthIncludingScrollbar - 40), GUILayout.Height(20)))
+                if (GUILayout.Button("Export " + descriptorNote.HouseName, GUILayout.Width(windowWidthIncludingScrollbar - 40), GUILayout.Height(20)))
                 {
-                    GameObject noteObject = note.gameObject;
-                    if (noteObject != null && note != null)
+                    GameObject noteObject = descriptorNote.gameObject;
+                    if (noteObject != null && descriptorNote != null)
                     {
-                        EditorUtility.SetDirty(note);
-
-                        foreach (Collider collider in noteObject.GetComponentsInChildren<Collider>())
+                        if (descriptorNote.HouseName == "" || descriptorNote.Author == "")
                         {
-                            collider.gameObject.layer = 0;
+                            EditorUtility.DisplayDialog("Export Failed", "It is required to fill in the Name, Author, and Description for your Home.", "OK");
+                            return;
                         }
-                        noteObject.GetComponent<HouseDescriptor>().enabled = false;
-                        BuildAssetBundle(note.gameObject);
-                        EditorUtility.DisplayDialog("Home Exported", "Exportation Successful!", "YIPPEE");
+
+                        string path = EditorUtility.SaveFilePanel("Where will you build your home?", "", descriptorNote.HouseName + ".home", "home");
+
+                        if (path != "")
+                        {
+                            Debug.ClearDeveloperConsole();
+                            Debug.Log("Exporting Home");
+                            EditorUtility.SetDirty(descriptorNote);
+                            BuildAssetBundle(descriptorNote.gameObject, path);
+                        }
+                        else
+                        {
+                            EditorUtility.DisplayDialog("Export Failed", "Please include the path to where the Home will be exported at.", "OK");
+                        }
                     }
                     else
                     {
-                        EditorUtility.DisplayDialog("Exportation Failed!", "GameObject is missing.", "OK");
+                        EditorUtility.DisplayDialog("Export Failed", "The Home object couldn't be found.", "OK");
                     }
                 }
                 GUILayout.Space(20);
@@ -80,107 +85,102 @@ public class CreateObject : EditorWindow
         GUI.EndScrollView();
     }
 
-
-    static public void BuildAssetBundle(GameObject obj)
+    static public void BuildAssetBundle(GameObject obj, string path)
     {
-        string SandObjectName = obj.GetComponent<HouseDescriptor>().HouseName;
-        string SandObjectAuthor = obj.GetComponent<HouseDescriptor>().Author;
+        GameObject selectedObject = obj;
+        string assetBundleDirectoryTEMP = "Assets/ExportedHouses";
 
-        if (!AssetDatabase.IsValidFolder("Assets/HomeOutput"))
+        HouseDescriptor descriptor = selectedObject.GetComponent<HouseDescriptor>();
+
+        if (!AssetDatabase.IsValidFolder("Assets/ExportedHouses"))
         {
-            AssetDatabase.CreateFolder("Assets", "HomeOutput");
+            AssetDatabase.CreateFolder("Assets", "ExportedHouses");
         }
 
-        if (SandObjectName == null)
-        {
-            SandObjectName = obj.name;
-        }
+        string HouseName = descriptor.HouseName;
+        string HouseAuthor = descriptor.Author;
+        // string HouseDescription = descriptor.Description;
 
-        prefabPath = "Assets/HomeOutput/" + SandObjectName + ".prefab";
-        filePath = "Assets/HomeOutput";
+        string prefabPathTEMP = "Assets/ExportedHouses/House.prefab";
 
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
-
-
-
-        var prefabAsset = PrefabUtility.SaveAsPrefabAsset(obj.gameObject, prefabPath);
-
-        GameObject contentsRoot = PrefabUtility.LoadPrefabContents(prefabPath);
-
-
+        PrefabUtility.SaveAsPrefabAsset(selectedObject.gameObject, prefabPathTEMP);
+        GameObject contentsRoot = PrefabUtility.LoadPrefabContents(prefabPathTEMP);
         contentsRoot.name = "home.SandParent";
 
-        string newprefabPath = "Assets/HomeOutput/" + contentsRoot.name + ".prefab";
         Text player_info = contentsRoot.AddComponent<Text>();
         string split = "$";
-        player_info.text = SandObjectName + split + SandObjectAuthor;
+        player_info.text = HouseName + split + HouseAuthor;
 
         Object.DestroyImmediate(contentsRoot.GetComponent<HouseDescriptor>());
 
+        if (File.Exists(prefabPathTEMP))
+        {
+            File.Delete(prefabPathTEMP);
+        }
+
+        string newprefabPath = "Assets/ExportedHouses/" + contentsRoot.name + ".prefab";
         PrefabUtility.SaveAsPrefabAsset(contentsRoot, newprefabPath);
         PrefabUtility.UnloadPrefabContents(contentsRoot);
+        AssetImporter.GetAtPath(newprefabPath).SetAssetBundleNameAndVariant("HouseAssetBundle", "");
 
-        if (File.Exists(prefabPath))
+        if (!Directory.Exists("Assets/ExportedHouses"))
         {
-            File.Delete(prefabPath);
+            Directory.CreateDirectory(assetBundleDirectoryTEMP);
         }
 
-        AssetImporter.GetAtPath(newprefabPath).SetAssetBundleNameAndVariant("home.assetbundle", "");
-
-
-
-        string assetBundleDirectory = "Assets/HomeOutput";
-
-        if (!Directory.Exists("Assets/HomeOutput"))
-        {
-            Directory.CreateDirectory(assetBundleDirectory);
-        }
-        string asset_new = filePath + "/" + SandObjectName;
-
-        string asset_temp = filePath + "/home.assetbundle";
-
+        string asset_new = assetBundleDirectoryTEMP + "/" + HouseName;
         if (File.Exists(asset_new + ".home"))
         {
-
             File.Delete(asset_new + ".home");
         }
 
-
-        BuildPipeline.BuildAssetBundles(assetBundleDirectory, BuildAssetBundleOptions.None, EditorUserBuildSettings.activeBuildTarget);
-
+        BuildPipeline.BuildAssetBundles(assetBundleDirectoryTEMP, BuildAssetBundleOptions.None, EditorUserBuildSettings.activeBuildTarget);
         if (File.Exists(newprefabPath))
         {
             File.Delete(newprefabPath);
         }
 
-        string asset_manifest = assetBundleDirectory + "/playermodel.assetbundle.manifest";
-        Debug.Log(asset_manifest);
-        if (File.Exists(asset_manifest))
+        string asset_temporary = assetBundleDirectoryTEMP + "/HouseAssetBundle";
+        string metafile = asset_temporary + ".meta";
+        if (File.Exists(asset_temporary))
         {
-            File.Delete(asset_manifest);
+            File.Move(asset_temporary, asset_new + ".home");
         }
 
-        string folder_manifest = assetBundleDirectory + "/PlayerModelOutput";
-        //Debug.Log(folder_manifest);
-        if (File.Exists(folder_manifest))
-        {
-            File.Delete(folder_manifest);
-
-            File.Delete(folder_manifest + ".manifest");
-        }
-
-
-
-        string metafile = asset_temp + ".meta";
-        if (File.Exists(asset_temp))
-        {
-
-            Debug.Log("Created " + SandObjectName);
-            File.Move(asset_temp, asset_new + ".home");
-            Debug.Log(metafile);
-        }
         AssetDatabase.Refresh();
         Debug.ClearDeveloperConsole();
+
+        string path1 = assetBundleDirectoryTEMP + "/" + HouseName + ".home";
+        string path2 = path;
+
+        if (!File.Exists(path2)) // add
+        {
+            File.Move(path1, path2);
+        }
+        else // replace
+        {
+            File.Delete(path2);
+            File.Move(path1, path2);
+        }
+        EditorUtility.DisplayDialog("Export Success", $"Your House was exported!", "OK");
+
+        try
+        {
+            AssetDatabase.RemoveAssetBundleName("Houseassetbundle", true);
+        }
+        catch
+        {
+
+        }
+
+        string HousePath = path + "/";
+        EditorUtility.RevealInFinder(HousePath);
+
+        if (AssetDatabase.IsValidFolder("Assets/ExportedHouses"))
+        {
+            AssetDatabase.DeleteAsset("Assets/ExportedHouses");
+        }
     }
 }
