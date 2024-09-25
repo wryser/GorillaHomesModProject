@@ -3,6 +3,10 @@ Unity project version 2022.3.2f1
 
 Join the discord if you need help making homes: https://discord.gg/wryser
 
+⚠ DISCLAIMER ⚠ This tutorial requires you have a base knowledge of how to install a unity version and open a unity project, if you do not know how to do this it is explained in my custom cosmetics project which you can find here
+https://github.com/wryser/CustomCosmeticsProject/wiki/Installation
+Just follow the steps in the link above but instead of downloading the Custom Cosmetics mod, download this project
+
 TO DOWNLOAD GO TO CODE AND DOWNLOAD ZIP
 
 ![image](https://github.com/user-attachments/assets/069ca3dd-95cb-4af7-8a02-fc0b13918fdf)
