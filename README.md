@@ -9,14 +9,16 @@ TO DOWNLOAD GO TO CODE AND DOWNLOAD ZIP
 
 OPEN SCENE BASESCENE TO SEE TREE
 
+To make a home simply put all of your models inside the House Gameobject 
+
+![image_2022-06-28_161739308](https://user-images.githubusercontent.com/104174626/176106875-0701eaeb-bb8b-4e89-8856-db1704a0ba8e.png)
+
+then on the house gameobject put your gorilla home info in
+
 ![image](GHAssets/HouseDescriptor.png)
 
 - House Name : Name your house
 - Author : Put your name here
-
-To make a home simply put all of your models inside the House Gameobject 
-
-![image_2022-06-28_161739308](https://user-images.githubusercontent.com/104174626/176106875-0701eaeb-bb8b-4e89-8856-db1704a0ba8e.png)
 
 and then go to GorillaHomes and click Home Exporter
 
