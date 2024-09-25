@@ -1,7 +1,9 @@
 # Gorilla Homes Mod Project
 Unity project version 2022.3.2f1
 
-Join the discord to learn how to make homes: https://discord.gg/FdqFUvJZ5m
+Join the discord if you need help making homes: https://discord.gg/wryser
+
+TO DOWNLOAD GO TO CODE AND DOWNLOAD ZIP
 
 OPEN SCENE BASESCENE TO SEE TREE
 
