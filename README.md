@@ -3,15 +3,14 @@ Unity project version 2022.3.2f1
 
 Join the discord if you need help making homes: https://discord.gg/wryser
 
-⚠ DISCLAIMER ⚠ This tutorial requires you have a base knowledge of how to install a unity version and open a unity project, if you do not know how to do this it is explained in my custom cosmetics project which you can find here
-https://github.com/wryser/CustomCosmeticsProject/wiki/Installation
-Just follow the steps in the link above but instead of downloading the Custom Cosmetics mod, download this project
+First of all you need to install unity, you should be able to figure out how to get unity by googling it if you do need a tutorial [here is one](https://www.youtube.com/watch?v=Kh_FD0Ypdhg&ab_channel=Digestible), After you have unity installed you will need to install version 2022.3.2f1 for the project to work you can download that [here](https://unity.com/releases/editor/whats-new/2022.3.20)
 
-TO DOWNLOAD GO TO CODE AND DOWNLOAD ZIP
+Now that you have the correct editor installed you can install the GorillaHomes Unity Project [here](https://github.com/wryser/GorillaHomesModProject/archive/refs/heads/main.zip) and then unzip it
 
-![image](https://github.com/user-attachments/assets/069ca3dd-95cb-4af7-8a02-fc0b13918fdf)
+Once you install the editor you can open unity hub and then click add and then navigate to your unzipped unity project and open it
+![image](https://github.com/user-attachments/assets/e91ad6ce-5f7a-4143-b622-c9aa0b82f992)
 
-OPEN SCENE BASESCENE TO SEE TREE
+⚠ IF THERE IS NO FOREST OPEN THE SCENE LOCATED AT SCENES/BASESCENE TO SEE IT ⚠
 
 To make a home simply put all of your models inside the House Gameobject 
 
