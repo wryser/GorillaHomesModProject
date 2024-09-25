@@ -34,4 +34,4 @@ You should then see this just click Ok
 
 Now you are finished load up gorilla tag and your house should be on the house switcher
 
-![image](https://user-images.githubusercontent.com/104174626/176107157-1afd99c7-4b31-4f23-aa9f-245d61e41b60.png)
+![image](https://github.com/user-attachments/assets/01ba750a-6b1e-42a5-8424-962c7197dad2)
